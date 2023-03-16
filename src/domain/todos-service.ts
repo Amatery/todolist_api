@@ -24,4 +24,7 @@ export const todosService = {
   async deleteAllTodos(): Promise<DeleteResult> {
     return todosRepository.deleteAllTodos()
   },
+  async updateTodoById(id: string, title: string, description: string, status: string): Promise<boolean> {
+    return todosRepository.updateTodoById(id, title, description, status)
+  },
 }

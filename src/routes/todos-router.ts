@@ -5,9 +5,9 @@ import { STATUS_CODES } from '../helpers/status-codes'
 import { inputValidationMiddleware } from '../middlewares/input-validation-middleware'
 import { validateDescription, validateTitle } from '../middlewares/todo-body-validators'
 import { TodoInputModel } from '../models/todo-models/todo-input-model'
-import { TodoQueryModel } from '../models/todo-models/todo-query-model'
+import { URIParamsTodoIdModel } from '../models/todo-models/URIParamsTodoIdModel'
 import { TodoViewModel } from '../models/todo-models/todo-view-model'
-import { RequestWithBody, RequestWithParams } from '../types/types'
+import { RequestWithBody, RequestWithParams, RequestWithParamsAndBody } from '../types/types'
 
 export const todosRouter = Router({})
 
@@ -37,7 +37,22 @@ todosRouter.post(
   },
 )
 
-todosRouter.delete('/:id', async (req: RequestWithParams<TodoQueryModel>, res: Response) => {
+todosRouter.put('/:id', async (req: RequestWithParamsAndBody<URIParamsTodoIdModel, TodoInputModel>, res: Response) => {
+  const { id } = req.params
+  const {
+    title,
+    description,
+    status,
+  } = req.body
+  const updatedTodo = await todosService.updateTodoById(id, title, description, status)
+  if (!updatedTodo) {
+    res.sendStatus(STATUS_CODES.NOT_FOUND)
+    return
+  }
+  res.sendStatus(STATUS_CODES.NO_CONTENT)
+})
+
+todosRouter.delete('/:id', async (req: RequestWithParams<URIParamsTodoIdModel>, res: Response<DeleteResult>) => {
   const { id } = req.params
   const result = await todosService.deleteTodoById(id)
   if (!result) {
