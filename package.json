@@ -1,0 +1,29 @@
+{
+  "name": "todolist_api",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "repository": "git@github.com:Amatery/todolist_api.git",
+  "author": "Alexey Lesik <sindzi0007@proton.me>",
+  "license": "MIT",
+  "scripts": {
+    "watch": "tsc -w",
+    "dev": "nodemon ./dist/src/index.js",
+    "debug": "nodemon --inspect ./dist/src/index.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "date-fns": "^2.29.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.15.0",
+    "mongodb": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.15.3",
+    "nodemon": "^2.0.21",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  }
+}
