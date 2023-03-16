@@ -2,6 +2,6 @@ export type TodoViewModel = {
   id: string,
   title: string,
   description: string,
-  createdAt: Date,
+  createdAt: string,
   status: string
 }

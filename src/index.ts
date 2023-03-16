@@ -1,11 +1,14 @@
 import express from 'express'
 import { settings } from '../settings'
 import { connectToDb } from './database/database-config'
+import { todosRouter } from './routes/todos-router'
 
 const app = express()
 const port = settings.PORT
 const jsonBodyMiddleware = express.json()
 app.use(jsonBodyMiddleware)
+
+app.use('/todos', todosRouter)
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
