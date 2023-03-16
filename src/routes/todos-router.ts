@@ -2,6 +2,8 @@ import { Request, Response, Router } from 'express'
 import { DeleteResult } from 'mongodb'
 import { todosService } from '../domain/todos-service'
 import { STATUS_CODES } from '../helpers/status-codes'
+import { inputValidationMiddleware } from '../middlewares/input-validation-middleware'
+import { validateDescription, validateTitle } from '../middlewares/todo-body-validators'
 import { TodoInputModel } from '../models/todo-models/todo-input-model'
 import { TodoQueryModel } from '../models/todo-models/todo-query-model'
 import { TodoViewModel } from '../models/todo-models/todo-view-model'
@@ -19,15 +21,21 @@ todosRouter.get('/', async (req: Request, res: Response<TodoViewModel[]>) => {
   res.status(STATUS_CODES.OK).json(result)
 })
 
-todosRouter.post('/', async (req: RequestWithBody<TodoInputModel>, res: Response<TodoViewModel>) => {
-  const {
-    title,
-    description,
-  } = req.body
-  const createdTodo = await todosService.createTodo(title, description)
-  res.status(STATUS_CODES.CREATED).json(createdTodo)
+todosRouter.post(
+  '/',
+  validateTitle,
+  validateDescription,
+  inputValidationMiddleware,
+  async (req: RequestWithBody<TodoInputModel>, res: Response<TodoViewModel>) => {
+    const {
+      title,
+      description,
+    } = req.body
+    const createdTodo = await todosService.createTodo(title, description)
+    res.status(STATUS_CODES.CREATED).json(createdTodo)
 
-})
+  },
+)
 
 todosRouter.delete('/:id', async (req: RequestWithParams<TodoQueryModel>, res: Response) => {
   const { id } = req.params
