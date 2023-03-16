@@ -18,4 +18,17 @@ export const todosRepository = {
   async deleteAllTodos(): Promise<DeleteResult> {
     return todosCollection.deleteMany({})
   },
+  async updateTodoById(id: string, title: string, description: string, status: string): Promise<boolean> {
+    const updatedTodo = await todosCollection.updateOne(
+      { id },
+      {
+        $set: {
+          title,
+          description,
+          status,
+        },
+      },
+    )
+    return updatedTodo.matchedCount === 1
+  },
 }
