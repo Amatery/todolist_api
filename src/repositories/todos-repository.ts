@@ -15,9 +15,6 @@ export const todosRepository = {
   async deleteTodoById(id: string): Promise<DeleteResult> {
     return todosCollection.deleteOne({ id })
   },
-  async deleteAllTodos(): Promise<DeleteResult> {
-    return todosCollection.deleteMany({})
-  },
   async updateTodoById(id: string, title: string, description: string, status: string): Promise<boolean> {
     const updatedTodo = await todosCollection.updateOne(
       { id },
