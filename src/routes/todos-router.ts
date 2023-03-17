@@ -61,14 +61,3 @@ todosRouter.delete('/:id', async (req: RequestWithParams<URIParamsTodoIdModel>, 
   }
   res.sendStatus(STATUS_CODES.NO_CONTENT)
 })
-
-/** FOR TESTING PURPOSES **/
-todosRouter.delete('/', async (req: Request, res: Response<DeleteResult>) => {
-  const result = await todosService.deleteAllTodos()
-  if (!result) {
-    res.sendStatus(STATUS_CODES.BAD_REQUEST)
-    return
-  }
-  res.sendStatus(STATUS_CODES.NO_CONTENT)
-})
-/** /FOR TESTING PURPOSES **/
