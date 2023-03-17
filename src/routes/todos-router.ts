@@ -5,8 +5,8 @@ import { STATUS_CODES } from '../helpers/status-codes'
 import { inputValidationMiddleware } from '../middlewares/input-validation-middleware'
 import { validateDescription, validateTitle } from '../middlewares/todo-body-validators'
 import { TodoInputModel } from '../models/todo-models/todo-input-model'
-import { URIParamsTodoIdModel } from '../models/todo-models/URIParamsTodoIdModel'
 import { TodoViewModel } from '../models/todo-models/todo-view-model'
+import { URIParamsTodoIdModel } from '../models/todo-models/URIParamsTodoIdModel'
 import { RequestWithBody, RequestWithParams, RequestWithParamsAndBody } from '../types/types'
 
 export const todosRouter = Router({})
